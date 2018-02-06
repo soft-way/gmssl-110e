@@ -101,6 +101,9 @@ The OpenSSL static library
 %ifarch x86_64
 ./Configure %{CONFIG_FLAGS} linux-x86_64 shared
 %endif
+%ifarch s390x
+./Configure %{CONFIG_FLAGS} linux64-s390x shared
+%endif
 LD_LIBRARY_PATH=`pwd` make
 
 %install
