@@ -2,6 +2,8 @@
  
 set -eux
 
+GMSSL_VERSION=1.1.0e
+
 PACKAGES="
 findutils
 gcc
