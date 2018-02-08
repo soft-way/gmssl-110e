@@ -1,0 +1,13 @@
+.PHONY: docker-rpm
+.DEFAULT_GOAL := docker-rpm
+
+list:
+	@sudo docker run \
+		centos:centos${OS_VERSION} ls -l ~/rpmbuild/RPMS
+
+.PHONY: docker-rpm
+docker-rpm: ## create virtual environment typically used for development purposes
+	@sudo docker run \
+		-v `pwd`:/gmssl-${GMSSL_VERSION}:rw centos:centos${OS_VERSION} \
+		/bin/bash /gmssl-${GMSSL_VERSION}/support/bootstrap-docker.sh
+

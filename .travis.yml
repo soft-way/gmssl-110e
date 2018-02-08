@@ -1,0 +1,29 @@
+# https://twindb.com/building-rpm-on-travis-ci-in-docker-containers/
+# https://github.com/twindb/backup/blob/develop/.travis.yml
+
+language: c
+sudo: required
+
+env:
+  global:
+    - GMSSL_VERSION=1.1.0e
+
+  matrix:
+    - PLATFORM=centos OS_VERSION=7 DOCKER_IMAGE=centos:centos7
+
+services:
+  - docker
+
+before_install:
+  - sudo apt-get update -qq
+  - sudo docker pull ${DOCKER_IMAGE}
+
+script:
+  - make -f Makefile.CI docker-rpm
+
+before_deploy:
+  - travis_wait 30 make package
+
+deploy:
+
+notifications:
